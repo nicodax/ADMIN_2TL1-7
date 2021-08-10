@@ -12,7 +12,7 @@ docker images
 
 ## Exécuter une image docker
 ```bash
-docker run -p 80:3000 --name [CONTAINER_NAME] daxxramass/web
+docker run -p 8080:80 --name web-service daxxramass/web
 ```
 > -p permet de spécifier quel port de la machine client doit être
 > mappé au port que l'application écoute.
@@ -21,7 +21,7 @@ docker run -p 80:3000 --name [CONTAINER_NAME] daxxramass/web
 
 ## Exécuter une image docker en mode détaché
 ```bash
-docker run -d -p 80:3000 --name [CONTAINER_NAME] daxxramass/web
+docker run -d -p 8080:80 --name web-service daxxramass/web
 ```
 > -d permet de lancer le mode détaché
 
@@ -56,29 +56,15 @@ docker ps
 
 Inspecter les logs d'un container docker :
 ```bash
-docker logs [CONTAINER_ID]
+docker logs web-service
 ```
 
 Interrompre l'exécution d'un container docker :
 ```bash
-docker stop [CONTAINER_NAME]
+docker stop web-service
 ```
 
 Démarrer l'exécution d'un container docker :
 ```bash
-docker start [CONTAINER_NAME]
-```
-
-# BUILD DEPENDENCIES
-
-A l'intérieur du dossier WEB :
-```bash
-npm install
-```
-
-# RUN LOCALLY
-
-A l'intérieur du dossier WEB :
-```bash
-npm start
+docker start web-service
 ```
