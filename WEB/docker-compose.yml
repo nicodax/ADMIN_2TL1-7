@@ -1,0 +1,34 @@
+# Docker version
+version: '3.8'
+services:
+    # PHP Apache container
+    php-apache-environment:
+        container_name: php-apache
+        # Build custom PHP Apache image and environment
+        build:
+            context: ./php
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+        # Present Working Directory Setup :
+        #   copy all files from ./php/src to /var/www/html inside the container
+        volumes:
+            - ./php/src:/var/www/html/
+        # Port mapping from Apache (80) to host (8000)
+        ports:
+            - 8000:80
+    # MySQL container
+    db:
+        container_name: db
+        image: mysql
+        # Restarts the service whenever any defined configuration changes
+        restart: always
+        # Environment Variables Setup
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: MYSQL_DATABASE
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
+        # Port mapping from MySQL (3306) to host (9906)
+        ports:
+            - "9906:3306"
