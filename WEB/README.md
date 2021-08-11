@@ -20,6 +20,11 @@ Il est alors nécessaire, avant de réessayer, d'exécuter la commande :
 sudo mount --make-shared /
 ```
 
+Arrêter l'exécution de docker-compose :
+```bash
+docker-compose down
+```
+
 ## EXEMPLE D'OUTPUT ATTENDU
 
 Après avoir exécuté `docker-compose up -d`
