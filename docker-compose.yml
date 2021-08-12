@@ -34,6 +34,7 @@ services:
             - "9906:3306"
     # MySQL Handler
     phpmyadmin:
+        container_name: phpmyadmin 
         image: phpmyadmin/phpmyadmin
         ports:
             - '8080:80'
