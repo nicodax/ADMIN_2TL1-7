@@ -8,5 +8,5 @@ jobs:
         - run: cd WEB
         - run: ls -a
         - run: docker-compose up -d
-        - run: docher-compose down
+        - run: docker-compose down
         - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "/bin/bash ~/ADMIN_2TL1-7/deploy_app.sh"
