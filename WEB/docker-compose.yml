@@ -1,5 +1,5 @@
 # Docker version
-version: '3.8'
+version: '3'
 services:
     # PHP Apache container
     php-apache-environment:
