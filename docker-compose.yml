@@ -6,14 +6,14 @@ services:
         container_name: php-apache
         # Build custom PHP Apache image and environment
         build:
-            context: ./php
+            context: ./WEB/php
             dockerfile: Dockerfile
         depends_on:
             - db
         # Present Working Directory Setup :
-        #   copy all files from ./php/src to /var/www/html inside the container
+        #   copy all files from ./WEB/php/src to /var/www/html inside the container
         volumes:
-            - ./php/src:/var/www/html/
+            - ./WEB/php/src:/var/www/html/
         # Port mapping from Apache (80) to host (8000)
         ports:
             - 80:80

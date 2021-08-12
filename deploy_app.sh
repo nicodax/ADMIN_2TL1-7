@@ -9,7 +9,7 @@
 ########################################
 
 # Set Present Working Directory
-cd /home/ubuntu/ADMIN_2TL1-7/WEB
+cd /home/ubuntu/ADMIN_2TL1-7/
 
 # Stop docker-compose execution
 docker-compose down
