@@ -14,6 +14,9 @@ cd /home/ubuntu/ADMIN_2TL1-7/
 # Stop docker-compose execution
 docker-compose down
 
+# Docker clean-up
+docker system prune -a --volumes -f
+
 # Update GitHub Repository
 git pull
 
