@@ -63,7 +63,7 @@ services:
         container_name: dns
         # Build custom DNS image and environment
         build:
-            context: ./dns
+            context: ./DNS
             dockerfile: Dockerfile
         # Port mapping from ns server (53) to host (53)
         ports:
