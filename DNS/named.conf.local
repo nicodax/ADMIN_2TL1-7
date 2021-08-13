@@ -1,0 +1,6 @@
+// Ajout d'une zone DNS à BIND9 pour le transformer en serveur maitre primaire
+
+zone "daxhelet.ovh" {
+    type master;
+    file "/etc/bind/zones/db.daxhelet.ovh";
+};
