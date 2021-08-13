@@ -15,8 +15,8 @@ ns.daxhelet.ovh.   	IN      NS      ns.daxhelet.ovh.
 @       IN      A       37.187.225.10
 
 
-ns      IN     A        37.187.225.10
-www     IN     A        37.187.225.10
+ns      IN     A        172.16.20.1
+www     IN     A        172.16.20.2
 b2b     IN     A        37.187.225.10
 mail    IN     A        37.187.225.10
 voip    IN     A        37.187.225.10    

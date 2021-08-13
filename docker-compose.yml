@@ -17,6 +17,9 @@ services:
         # Port mapping from Apache (80) to host (8000)
         ports:
             - 80:80
+        networks:
+            dmz:
+                ipv4_address: 172.16.20.2
     # Node.js container
     node-environment:
         container_name: node
@@ -68,3 +71,12 @@ services:
         # Port mapping from ns server (53) to host (53)
         ports:
             - 53:53
+        networks:
+            dmz:
+                ipv4_address: 172.16.20.1
+networks:
+    dmz:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.16.20.0/24
