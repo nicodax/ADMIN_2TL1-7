@@ -7,4 +7,4 @@ jobs:
         - checkout
         - run: docker-compose up -d
         - run: docker-compose down
-        - run: ssh $USER@$IP "/bin/bash ~/deploy_app.sh"
+        - run: ssh $USER@$IP "/bin/bash ~/circleci/deploy_app.sh"

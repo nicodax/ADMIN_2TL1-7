@@ -1,39 +1,25 @@
 # Docker version
-version: '3'
+version: '2'
 services:
     # PHP Apache container
     php-apache-environment:
         container_name: php-apache
         # Build custom PHP Apache image and environment
         build:
-            context: ./WEB/php
+            context: ./WEB
             dockerfile: Dockerfile
         depends_on:
             - db
         # Present Working Directory Setup :
-        #   copy all files from ./WEB/php/src to /var/www/html inside the container
+        #   copy all files from ./WEB/src/b2b to /var/www/html inside the container
         volumes:
-            - ./WEB/php/src:/var/www/html/
+            - ./WEB/src/b2b:/var/www/html/
         # Port mapping from Apache (80) to host (8000)
         ports:
             - 80:80
         networks:
             dmz:
-                ipv4_address: 172.16.20.2
-    # Node.js container
-    node-environment:
-        container_name: node
-        # Build custom PHP Apache image and environment
-        build:
-            context: ./WEB/node
-            dockerfile: Dockerfile
-        # Present Working Directory Setup :
-        #   copy all files from ./WEB/node/src to /var/www/html inside the container
-        volumes:
-            - ./WEB/node/src:/var/www/html/
-        # Port mapping from Apache (80) to host (8000)
-        ports:
-            - 49160:8080
+                ipv4_address: 172.16.20.3
     # MySQL containerkey
     db:
         container_name: db
@@ -48,13 +34,16 @@ services:
             MYSQL_PASSWORD: admin
         # Port mapping from MySQL (3306) to host (9906)
         ports:
-            - "9906:3306"
+            - 9906:3306
+        networks:
+            dmz:
+                ipv4_address: 172.16.20.4
     # MySQL Handler
     phpmyadmin:
         container_name: phpmyadmin 
         image: phpmyadmin/phpmyadmin
         ports:
-            - '8080:80'
+            - 8080:80
         # Restarts the service whenever any defined configuration changes
         restart: always
         environment:
@@ -63,17 +52,18 @@ services:
             - db
     # DNS container
     dns-environment:
-        container_name: dns
+        container_name: ns
         # Build custom DNS image and environment
         build:
             context: ./DNS
             dockerfile: Dockerfile
         # Port mapping from ns server (53) to host (53)
         ports:
-            - 53:53
+            - 53:53/udp
+            - 53:53/tcp
         networks:
             dmz:
-                ipv4_address: 172.16.20.1
+                ipv4_address: 172.16.20.2
 networks:
     dmz:
         ipam:

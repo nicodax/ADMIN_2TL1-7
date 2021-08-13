@@ -1,22 +1,22 @@
-$ORIGIN l1-7.ephec-ti.be.     ;designates the start of this zone file in the namespace
-$TTL 86400                   ; default time to live
+$ORIGIN daxhelet.ovh.           ;designates the start of this zone file in the namespace
+$TTL 86400                      ; default time to live
 
 @ IN SOA ns.daxhelet.ovh. admin.daxhelet.ovh. (
-        2021032801  ; serial number
-        21600       ; Refresh
-        3600        ; Retry
-        1209600     ; Expire
-        86400       ; Min TTL
+        2021032801              ; serial number
+        21600                   ; Refresh
+        3600                    ; Retry
+        1209600                 ; Expire
+        86400                   ; Min TTL
         )
 
-ns.daxhelet.ovh.   	IN      NS      ns.daxhelet.ovh.
-@       IN      NS      ns.daxhelet.ovh.
-@       IN      MX      10 mail.daxhelet.ovh.
-@       IN      A       37.187.225.10
+daxhelet.ovh.   IN      NS      ns.daxhelet.ovh.
+@               IN      NS      ns.daxhelet.ovh.
+@               IN      MX      10 mail.daxhelet.ovh.
+@               IN      A       37.187.225.10
 
 
-ns      IN     A        172.16.20.1
-www     IN     A        172.16.20.2
-b2b     IN     A        37.187.225.10
-mail    IN     A        37.187.225.10
-voip    IN     A        37.187.225.10    
+ns              IN      A       37.187.225.10
+www             IN      A       37.187.225.10
+b2b             IN      A       37.187.225.10
+mail            IN      A       37.187.225.10
+voip            IN      A       37.187.225.10
