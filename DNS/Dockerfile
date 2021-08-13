@@ -15,7 +15,7 @@ COPY named.conf /etc/bind/
 COPY named.conf.options /etc/bind/
 COPY named.conf.local /etc/bind/
 COPY named.conf.log /etc/bind/
-COPY db.daxhelet.ovh. /etc/bind/zones/
+COPY db.daxhelet.ovh /etc/bind/zones/
 
 # Ouverture du port 53 en UDP/TCP
 EXPOSE 53/udp
