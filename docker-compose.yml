@@ -6,18 +6,32 @@ services:
         container_name: php-apache
         # Build custom PHP Apache image and environment
         build:
-            context: ./php
+            context: ./WEB/php
             dockerfile: Dockerfile
         depends_on:
             - db
         # Present Working Directory Setup :
-        #   copy all files from ./php/src to /var/www/html inside the container
+        #   copy all files from ./WEB/php/src to /var/www/html inside the container
         volumes:
-            - ./php/src:/var/www/html/
+            - ./WEB/php/src:/var/www/html/
         # Port mapping from Apache (80) to host (8000)
         ports:
             - 80:80
-    # MySQL container
+    # Node.js container
+    node-environment:
+        container_name: node
+        # Build custom PHP Apache image and environment
+        build:
+            context: ./WEB/node
+            dockerfile: Dockerfile
+        # Present Working Directory Setup :
+        #   copy all files from ./WEB/node/src to /var/www/html inside the container
+        volumes:
+            - ./WEB/node/src:/var/www/html/
+        # Port mapping from Apache (80) to host (8000)
+        ports:
+            - 49160:8080
+    # MySQL containerkey
     db:
         container_name: db
         image: mysql
@@ -34,6 +48,7 @@ services:
             - "9906:3306"
     # MySQL Handler
     phpmyadmin:
+        container_name: phpmyadmin 
         image: phpmyadmin/phpmyadmin
         ports:
             - '8080:80'
