@@ -58,3 +58,13 @@ services:
             PMA_HOST: db
         depends_on:
             - db
+    # DNS container
+    dns-environment:
+        container_name: dns
+        # Build custom DNS image and environment
+        build:
+            context: ./dns
+            dockerfile: Dockerfile
+        # Port mapping from ns server (53) to host (53)
+        ports:
+            - 53:53
