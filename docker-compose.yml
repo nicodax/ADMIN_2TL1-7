@@ -19,8 +19,8 @@ services:
         ports:
             - 80:80
         networks:
-            dmz:
-                ipv4_address: 172.16.20.3
+            woodytoys:
+                ipv4_address: 172.16.20.1
     # MySQL containerkey
     db:
         container_name: db
@@ -30,15 +30,15 @@ services:
         # Environment Variables Setup
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: MYSQL_DATABASE
+            MYSQL_DATABASE: b2b
             MYSQL_USER: admin
             MYSQL_PASSWORD: admin
         # Port mapping from MySQL (3306) to host (9906)
         ports:
             - 9906:3306
         networks:
-            dmz:
-                ipv4_address: 172.16.20.4
+            woodytoys:
+                ipv4_address: 172.16.10.4
     # MySQL Handler
     phpmyadmin:
         container_name: phpmyadmin 
@@ -63,11 +63,11 @@ services:
             - 53:53/udp
             - 53:53/tcp
         networks:
-            dmz:
-                ipv4_address: 172.16.20.2
+            woodytoys:
+                ipv4_address: 172.16.20.3
 networks:
-    dmz:
+    woodytoys:
         ipam:
             driver: default
             config:
-                - subnet: 172.16.20.0/24
+                - subnet: 172.16.0.0/16
