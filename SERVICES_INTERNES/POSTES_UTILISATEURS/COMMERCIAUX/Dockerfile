@@ -18,3 +18,6 @@ RUN useradd -ms /bin/bash commercial
 
 # Connect to the container with the user
 USER commercial
+
+# Run the docker image
+CMD tail -f /dev/null

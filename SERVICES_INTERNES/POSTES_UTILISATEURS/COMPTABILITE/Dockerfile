@@ -18,3 +18,6 @@ RUN useradd -ms /bin/bash comptable
 
 # Connect to the container with the user
 USER comptable
+
+# Run the docker image
+CMD tail -f /dev/null

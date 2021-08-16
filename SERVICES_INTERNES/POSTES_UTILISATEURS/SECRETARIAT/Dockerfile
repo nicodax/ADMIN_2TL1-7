@@ -18,3 +18,6 @@ RUN useradd -ms /bin/bash secretaire
 
 # Connect to the container with the user
 USER secretaire
+
+# Run the docker image
+CMD tail -f /dev/null

@@ -18,3 +18,6 @@ RUN useradd -ms /bin/bash ouvrier
 
 # Connect to the container with the user
 USER ouvrier
+
+# Run the docker image
+CMD tail -f /dev/null

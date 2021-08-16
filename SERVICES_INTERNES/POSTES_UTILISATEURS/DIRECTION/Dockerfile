@@ -18,3 +18,6 @@ RUN useradd -ms /bin/bash direction
 
 # Connect to the container with the user
 USER direction
+
+# Run the docker image
+CMD tail -f /dev/null
