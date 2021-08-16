@@ -76,7 +76,7 @@ services:
             woodytoys:
                 ipv4_address: 172.16.10.2
     # INTERNAL DNS container
-    resolver-environment:
+    internal-dns-environment:
         container_name: internal-ns
         # Build custom DNS image and environment
         build:
