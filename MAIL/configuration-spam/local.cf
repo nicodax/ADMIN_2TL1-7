@@ -1,0 +1,12 @@
+#   Add *****SPAM***** to the Subject header of spam e-mails
+ rewrite_header Subject [***** SPAM _SCORE_ *****]
+
+#   Set the threshold at which a message is considered spam (default: 5.0)
+required_score 4.0
+
+
+
+#   Some shortcircuiting, if the plugin is enabled
+ifplugin Mail::SpamAssassin::Plugin::Shortcircuit
+
+endif # Mail::SpamAssassin::Plugin::Shortcircuit
