@@ -18,6 +18,8 @@ services:
         # Port mapping from Apache (80) to host (8000)
         ports:
             - 80:80
+        dns:
+            - 172.16.10.2
         networks:
             woodytoys:
                 ipv4_address: 172.16.20.1
@@ -36,6 +38,8 @@ services:
         # Port mapping from MySQL (3306) to host (9906)
         ports:
             - 9906:3306
+        dns:
+            - 172.16.10.2
         networks:
             woodytoys:
                 ipv4_address: 172.16.10.4
@@ -51,6 +55,8 @@ services:
             PMA_HOST: db
         depends_on:
             - db
+        dns:
+            - 172.16.10.2
     # DNS container
     dns-environment:
         container_name: ns
@@ -62,6 +68,8 @@ services:
         ports:
             - 53:53/udp
             - 53:53/tcp
+        dns:
+            - 172.16.10.2
         networks:
             woodytoys:
                 ipv4_address: 172.16.20.3
@@ -82,12 +90,47 @@ services:
         build:
             context: ./SERVICES_INTERNES/DNS
             dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
         networks:
             woodytoys:
                 ipv4_address: 172.16.10.1
+    # ERP PHP Apache container
+    erp-environment:
+        container_name: erp
+        # Build custom PHP Apache image and environment
+        build:
+            context: ./SERVICES_INTERNES/ERP
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+        # Present Working Directory Setup :
+        #   copy all files from ./WEB/src/b2b to /var/www/html inside the container
+        volumes:
+            - ./SERVICES_INTERNES/ERP/src/b2b:/usr/local/apache2/htdocs/b2b/
+        # Port mapping from Apache (80) to host (8000)
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.10.3
+    ### POSTES UTILISATEURS
+    # DIRECTION
+    direction-environment:
+        container_name: direction
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/DIRECTION
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.2
 networks:
     woodytoys:
         ipam:
             driver: default
             config:
                 - subnet: 172.16.0.0/16
+                  gateway: 172.16.0.254

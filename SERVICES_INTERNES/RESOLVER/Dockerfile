@@ -10,4 +10,7 @@ RUN apt-get install -y bind9-doc
 
 COPY conf/named.conf /etc/bind/named.conf
 
+EXPOSE 53/udp
+EXPOSE 53/tcp
+
 CMD named -g

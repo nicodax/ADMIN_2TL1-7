@@ -105,7 +105,7 @@
                 }
             }
         ?>
-        <h1>Bienvenue sur le site b2b de WoodyToys</h1>
+        <h1>Bienvenue sur le site intranet</h1>
         <h2>Ajouter un jeu</h2>
         <p><span class="error">* required field</span></p>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  

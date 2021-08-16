@@ -14,4 +14,7 @@ RUN mkdir /etc/bind/master
 COPY ./master/woodytoys.interne /etc/bind/master/woodytoys.interne
 COPY ./master/10.16.172.in-addr.arpa /etc/bind/master/10.16.172.in-addr.arpa
 
+EXPOSE 53/udp
+EXPOSE 53/tcp
+
 CMD named -g
