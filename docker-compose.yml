@@ -65,6 +65,26 @@ services:
         networks:
             woodytoys:
                 ipv4_address: 172.16.20.3
+    # DNS Resolver
+    resolver-environment:
+        container_name: resolver
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/RESOLVER
+            dockerfile: Dockerfile
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.10.2
+    # INTERNAL DNS container
+    resolver-environment:
+        container_name: internal-ns
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/DNS
+            dockerfile: Dockerfile
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.10.1
 networks:
     woodytoys:
         ipam:
