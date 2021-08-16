@@ -1,0 +1,13 @@
+$TTL 604800
+@       IN      SOA     ns.woodytoys.interne.       admin.woodytoys.interne. (
+                2021081601      ; Serial
+                604800          ; Refresh
+                86400           ; Retry
+                2419200         ; Expire
+                604800 )        ; Negative Cache TTL
+
+woodytoys.interne.  IN      NS       ns.woodytoys.interne.
+
+ns              IN      A       172.16.10.1  
+resolv          IN      A       172.16.10.2 
+erp             IN      A       172.16.10.3 

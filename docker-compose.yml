@@ -18,9 +18,11 @@ services:
         # Port mapping from Apache (80) to host (8000)
         ports:
             - 80:80
+        dns:
+            - 172.16.10.2
         networks:
-            dmz:
-                ipv4_address: 172.16.20.3
+            woodytoys:
+                ipv4_address: 172.16.20.1
     # MySQL containerkey
     db:
         container_name: db
@@ -30,15 +32,17 @@ services:
         # Environment Variables Setup
         environment:
             MYSQL_ROOT_PASSWORD: root
-            MYSQL_DATABASE: MYSQL_DATABASE
+            MYSQL_DATABASE: b2b
             MYSQL_USER: admin
             MYSQL_PASSWORD: admin
         # Port mapping from MySQL (3306) to host (9906)
         ports:
             - 9906:3306
+        dns:
+            - 172.16.10.2
         networks:
-            dmz:
-                ipv4_address: 172.16.20.4
+            woodytoys:
+                ipv4_address: 172.16.10.4
     # MySQL Handler
     phpmyadmin:
         container_name: phpmyadmin 
@@ -51,6 +55,8 @@ services:
             PMA_HOST: db
         depends_on:
             - db
+        dns:
+            - 172.16.10.2
     # DNS container
     dns-environment:
         container_name: ns
@@ -62,12 +68,129 @@ services:
         ports:
             - 53:53/udp
             - 53:53/tcp
+        dns:
+            - 172.16.10.2
         networks:
-            dmz:
-                ipv4_address: 172.16.20.2
+            woodytoys:
+                ipv4_address: 172.16.20.3
+    # DNS Resolver
+    resolver-environment:
+        container_name: resolver
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/RESOLVER
+            dockerfile: Dockerfile
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.10.2
+    # INTERNAL DNS container
+    internal-dns-environment:
+        container_name: internal-ns
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/DNS
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.10.1
+    # ERP PHP Apache container
+    erp-environment:
+        container_name: erp
+        # Build custom PHP Apache image and environment
+        build:
+            context: ./SERVICES_INTERNES/ERP
+            dockerfile: Dockerfile
+        depends_on:
+            - db
+        # Present Working Directory Setup :
+        #   copy all files from ./WEB/src/b2b to /var/www/html inside the container
+        volumes:
+            - ./SERVICES_INTERNES/ERP/src/b2b:/usr/local/apache2/htdocs/b2b/
+        # Port mapping from Apache (80) to host (8000)
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.10.3
+    ### POSTES UTILISATEURS
+    # DIRECTION
+    direction-environment:
+        container_name: direction
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/DIRECTION
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.2
+    # DIRECTION
+    direction-environment:
+        container_name: direction
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/DIRECTION
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.2
+    # SECRETARIAT
+    secretariat-environment:
+        container_name: secretariat
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/SECRETARIAT
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.3
+    # COMPTABILITE
+    comptabilite-environment:
+        container_name: comptabilite
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/COMPTABILITE
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.4
+    # COMMERCIAUX
+    commerciaux-environment:
+        container_name: commerciaux
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/COMMERCIAUX
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.5
+    # OUVRIERS
+    commerciaux-environment:
+        container_name: ouvriers
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/OUVRIERS
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.6
 networks:
-    dmz:
+    woodytoys:
         ipam:
             driver: default
             config:
-                - subnet: 172.16.20.0/24
+                - subnet: 172.16.0.0/16
+                  gateway: 172.16.0.254
