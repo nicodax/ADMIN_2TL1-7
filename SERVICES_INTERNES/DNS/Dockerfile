@@ -15,7 +15,7 @@ COPY conf/named.conf /etc/bind/named.conf
 
 # Copy the zone files to the ubuntu image
 RUN mkdir /etc/bind/master
-COPY ./master/woodytoys.interne /etc/bind/master/woodytoys.interne
+COPY ./master/db.woodytoys.interne /etc/bind/master/db.woodytoys.interne
 COPY ./master/10.16.172.in-addr.arpa /etc/bind/master/10.16.172.in-addr.arpa
 
 # Open the port 53 to UDP and TCP trafic

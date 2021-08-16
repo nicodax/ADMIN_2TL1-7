@@ -13,6 +13,9 @@ RUN apt-get install -y curl elinks
 # Install VIM for file edition
 RUN apt-get install vim -y
 
+# Install mutt (text based mail client)
+RUN apt-get install mutt -y
+
 # Create Ubuntu user and create a home repertory for it
 RUN useradd -ms /bin/bash secretaire
 
