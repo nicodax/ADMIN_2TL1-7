@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>  
 <html>
     <head>
+        <title>WoodyToys - B2B</title>
         <style>
             .error {color: #FF0000;}
         </style>
     </head>
     <body>  
         <?php
-            //These are the defined authentication environment in the db service
-
+            // These are the defined authentication environment in the db service
             // The MySQL service named in the docker-compose.yml.
             $host = 'db';
             // Database use name
@@ -82,6 +82,7 @@
                 }
             }
 
+            // Prepare input for pattern testing 
             function test_input($data) {
                 $data = trim($data);
                 $data = stripslashes($data);
@@ -105,35 +106,45 @@
                 }
             }
         ?>
-        <h1>Bienvenue sur le site b2b de WoodyToys</h1>
-        <h2>Ajouter un jeu</h2>
+
+        <h1>Woody Toys</h1>
+
+        <p>Bienvenue sur le site b2b de WoodyToys</p>
+
+        <h3>Ajouter un jeu</h3>
+
         <p><span class="error">* required field</span></p>
+
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">  
             Nom : <input type="text" name="name" value="<?php echo $name;?>">
             <span class="error">* <?php echo $nameErr;?></span>
+
             <br><br>
+
             Prix : <input type="number" name="price" value="<?php echo $price;?>" min="1" max="999">
             <span class="error">* <?php echo $priceErr;?></span>
+
             <br><br>
+
             Quantité : <input type="number" name="qtity" value="<?php echo $qtity;?>" min="1" max="99">
             <span class="error">* <?php echo $qtityErr;?></span>
+
             <br>
+
             <input type="submit" name="submit" value="Submit">  
         </form>
 
-        <br>
-        <br>
-        <br>
+        <br><br><br>
 
         <?php
-            
-
+            // Select everything from the products' table
             $sql = "SELECT * FROM products";
                 
             $result = $mysqli->query($sql);
             
             if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
+                // Display the results on the web page
                 printf("Nom du produit: %s, prix: %s, en stock: %s<br />",
                         $row["product_name"], 
                         $row["product_price"], 

@@ -14,7 +14,6 @@ daxhelet.ovh.   IN      NS      ns.daxhelet.ovh.
 @               IN      MX      10 mail.daxhelet.ovh.
 @               IN      A       37.187.225.10
 
-
 ns              IN      A       37.187.225.10
 www             IN      A       37.187.225.10
 b2b             IN      A       37.187.225.10

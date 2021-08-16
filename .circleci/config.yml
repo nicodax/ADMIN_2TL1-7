@@ -5,10 +5,6 @@ jobs:
     working_directory: ~/repo # Default working directory, where your project will be cloned
     steps:
         - checkout
-        - run: docker network create --driver bridge --subnet 172.16.20.0/24 --gateway 172.16.20.254 dmz
-        - run: docker network create --driver bridge --subnet 172.16.10.0/24 --gateway 172.16.10.254 intranet
-        - run: docker network create --driver bridge --subnet 172.16.0.0/24 --gateway 172.16.0.254 lan-interne
-        - run: docker-compose -f web.yml -p services_web up -d --build
-        - run: docker-compose -f services_internes.yml -p services_internes up -d --build
-        - run: docker-compose -f dns.yml -p service_dns up -d --build
+        - run: docker-compose up -d
+        - run: docker-compose down
         - run: ssh $USER@$IP "/bin/bash ~/circleci/deploy_app.sh"

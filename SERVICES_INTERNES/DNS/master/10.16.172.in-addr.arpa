@@ -1,12 +1,12 @@
 $TTL 86400; 24 hours could have been written as 24h or 1d
 $ORIGIN 10.16.172.IN-ADDR.ARPA.
 
-@        IN     SOA     ns.woodytoys.interne.        admin.woodytoys.interne. (
-                        2021081601      ; Serial
-                        604800          ; refresh
-                        86400           ; Retry
-                        2419200         ; Expire
-                        604800)         ; Negative Cache TTL
+@        IN     SOA             ns.woodytoys.interne.        admin.woodytoys.interne. (
+                2021081601      ; Serial
+                604800          ; refresh
+                86400           ; Retry
+                2419200         ; Expire
+                604800)         ; Negative Cache TTL
 
         IN      NS      ns.woodytoy.interne.
 
