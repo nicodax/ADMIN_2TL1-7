@@ -127,6 +127,66 @@ services:
         networks:
             woodytoys:
                 ipv4_address: 172.16.0.2
+    # DIRECTION
+    direction-environment:
+        container_name: direction
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/DIRECTION
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.2
+    # SECRETARIAT
+    secretariat-environment:
+        container_name: secretariat
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/SECRETARIAT
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.3
+    # COMPTABILITE
+    comptabilite-environment:
+        container_name: comptabilite
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/COMPTABILITE
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.4
+    # COMMERCIAUX
+    commerciaux-environment:
+        container_name: commerciaux
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/COMMERCIAUX
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.5
+    # OUVRIERS
+    commerciaux-environment:
+        container_name: ouvriers
+        # Build custom DNS image and environment
+        build:
+            context: ./SERVICES_INTERNES/POSTES_UTILISATEURS/OUVRIERS
+            dockerfile: Dockerfile
+        dns:
+            - 172.16.10.2
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.0.6
 networks:
     woodytoys:
         ipam:
