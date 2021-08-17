@@ -15,6 +15,7 @@ services:
         volumes:
             - ./WEB/src/b2b:/usr/local/apache2/htdocs/b2b/
             - ./WEB/src/www:/usr/local/apache2/htdocs/www/
+            - ./letsencrypt:/usr/local/letsencrypt/
         # Port mapping from Apache (80) to host (8000)
         ports:
             - 80:80
