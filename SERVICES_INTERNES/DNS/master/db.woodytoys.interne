@@ -8,6 +8,6 @@ $TTL 604800
 
 woodytoys.interne.  IN      NS      ns.woodytoys.interne.
 
-ns                  IN      A       172.16.10.1  
-resolver            IN      A       172.16.10.2 
-erp                 IN      A       172.16.10.3 
+ns                  IN      A       172.16.10.2  
+resolver            IN      A       172.16.10.3 
+erp                 IN      A       172.16.10.4 
