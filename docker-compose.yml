@@ -2,29 +2,44 @@
 version: '2'
 services:
     # PHP Apache container
-    php-apache-environment:
-        container_name: php-apache
-        # Build custom PHP Apache image and environment
+    # php-apache-environment:
+    #     container_name: php-apache
+    #     # Build custom PHP Apache image and environment
+    #     build:
+    #         context: ./WEB
+    #         dockerfile: Dockerfile
+    #     depends_on:
+    #         - db
+    #     # Present Working Directory Setup :
+    #     #   copy all files from ./WEB/src/b2b to /var/www/html inside the container
+    #     volumes:
+    #         - ./WEB/src/b2b:/usr/local/apache2/htdocs/b2b/
+    #         - ./WEB/src/www:/usr/local/apache2/htdocs/www/
+    #         - ./letsencrypt:/usr/local/letsencrypt/
+    #     # Port mapping from Apache (80) to host (8000)
+    #     ports:
+    #         - 80:80
+    #         - 443:443
+    #     dns:
+    #         - 172.16.10.3
+    #     networks:
+    #         woodytoys:
+    #             ipv4_address: 172.16.20.2
+    apache2:
         build:
-            context: ./WEB
+            context: ./WEB-HTTPS
             dockerfile: Dockerfile
-        depends_on:
-            - db
-        # Present Working Directory Setup :
-        #   copy all files from ./WEB/src/b2b to /var/www/html inside the container
+        hostname: daxhelet.ovh
+        restart: always
         volumes:
-            - ./WEB/src/b2b:/usr/local/apache2/htdocs/b2b/
-            - ./WEB/src/www:/usr/local/apache2/htdocs/www/
-            - ./letsencrypt:/usr/local/letsencrypt/
-        # Port mapping from Apache (80) to host (8000)
+            - ./WEB-HTTPS/etcletsencrypt:/etc/letsencrypt
+            - ./WEB-HTTPS/varletsencrypt:/var/lib/letsencrypt
         ports:
-            - 80:80
-            - 443:443
-        dns:
-            - 172.16.10.3
-        networks:
-            woodytoys:
-                ipv4_address: 172.16.20.2
+            - "80:80"
+            - "443:443"
+        environment:
+            LETS_ENCRYPT_EMAIL: "he201753@students.ephec.be"
+            LETS_ENCRYPT_DOMAINS: "daxhelet.ovh,www.daxhelet.ovh"
     # MySQL containerkey
     db:
         container_name: db

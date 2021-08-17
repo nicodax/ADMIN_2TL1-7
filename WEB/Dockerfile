@@ -19,6 +19,6 @@ COPY ./config/vhost.conf /etc/apache2/sites-available/000-default.conf
 # Install and enable mysqli
 RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
 
-# Open the port 80 to trafic
+# Open the ports 80 and 443 to trafic
 EXPOSE 80
 EXPOSE 443
