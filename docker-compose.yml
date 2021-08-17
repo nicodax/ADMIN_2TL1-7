@@ -25,21 +25,32 @@ services:
     #     networks:
     #         woodytoys:
     #             ipv4_address: 172.16.20.2
-    apache2:
+    php-apache-environment:
+        container_name: php-apache
+        # Build custom PHP Apache image and environment
         build:
             context: ./WEB-HTTPS
             dockerfile: Dockerfile
         hostname: daxhelet.ovh
         restart: always
+        depends_on:
+            - db
         volumes:
             - ./WEB-HTTPS/etcletsencrypt:/etc/letsencrypt
             - ./WEB-HTTPS/varletsencrypt:/var/lib/letsencrypt
+            - ./WEB-HTTPS/src/b2b:/usr/local/apache2/htdocs/b2b/
+            - ./WEB-HTTPS/src/www:/usr/local/apache2/htdocs/www/
         ports:
             - "80:80"
             - "443:443"
+        dns:
+            - 172.16.10.3
         environment:
             LETS_ENCRYPT_EMAIL: "he201753@students.ephec.be"
             LETS_ENCRYPT_DOMAINS: "daxhelet.ovh,www.daxhelet.ovh"
+        networks:
+            woodytoys:
+                ipv4_address: 172.16.20.2
     # MySQL containerkey
     db:
         container_name: db
