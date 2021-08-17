@@ -1,30 +1,7 @@
 # Docker version
 version: '2'
 services:
-    # PHP Apache container
-    # php-apache-environment:
-    #     container_name: php-apache
-    #     # Build custom PHP Apache image and environment
-    #     build:
-    #         context: ./WEB
-    #         dockerfile: Dockerfile
-    #     depends_on:
-    #         - db
-    #     # Present Working Directory Setup :
-    #     #   copy all files from ./WEB/src/b2b to /var/www/html inside the container
-    #     volumes:
-    #         - ./WEB/src/b2b:/usr/local/apache2/htdocs/b2b/
-    #         - ./WEB/src/www:/usr/local/apache2/htdocs/www/
-    #         - ./letsencrypt:/usr/local/letsencrypt/
-    #     # Port mapping from Apache (80) to host (8000)
-    #     ports:
-    #         - 80:80
-    #         - 443:443
-    #     dns:
-    #         - 172.16.10.3
-    #     networks:
-    #         woodytoys:
-    #             ipv4_address: 172.16.20.2
+    # PHP Apache Web Server
     php-apache-environment:
         container_name: php-apache
         # Build custom PHP Apache image and environment
@@ -38,8 +15,6 @@ services:
         volumes:
             - ./WEB-HTTPS/etcletsencrypt:/etc/letsencrypt
             - ./WEB-HTTPS/varletsencrypt:/var/lib/letsencrypt
-            - ./WEB-HTTPS/src/b2b:/usr/local/apache2/htdocs/b2b/
-            - ./WEB-HTTPS/src/www:/usr/local/apache2/htdocs/www/
         ports:
             - "80:80"
             - "443:443"
@@ -54,7 +29,9 @@ services:
     # MySQL containerkey
     db:
         container_name: db
-        image: mysql:5
+        build:
+            context: ./WEB-HTTPS/MySQL
+            dockerfile: Dockerfile
         # Restarts the service whenever any defined configuration changes
         restart: always
         # Environment Variables Setup
@@ -63,28 +40,11 @@ services:
             MYSQL_DATABASE: b2b
             MYSQL_USER: admin
             MYSQL_PASSWORD: admin
-        # Port mapping from MySQL (3306) to host (9906)
-        ports:
-            - 9906:3306
         dns:
             - 172.16.10.3
         networks:
             woodytoys:
                 ipv4_address: 172.16.10.5
-    # MySQL Handler
-    phpmyadmin:
-        container_name: phpmyadmin 
-        image: phpmyadmin/phpmyadmin
-        ports:
-            - 8080:80
-        # Restarts the service whenever any defined configuration changes
-        restart: always
-        environment:
-            PMA_HOST: db
-        depends_on:
-            - db
-        dns:
-            - 172.16.10.2
     # DNS container
     dns-environment:
         container_name: ns
@@ -134,7 +94,6 @@ services:
         #   copy all files from ./WEB/src/b2b to /var/www/html inside the container
         volumes:
             - ./SERVICES_INTERNES/ERP/src/b2b:/usr/local/apache2/htdocs/b2b/
-        # Port mapping from Apache (80) to host (8000)
         dns:
             - 172.16.10.3
         networks:
