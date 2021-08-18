@@ -22,7 +22,7 @@ services:
             - 172.16.10.3
         environment:
             LETS_ENCRYPT_EMAIL: "he201753@students.ephec.be"
-            LETS_ENCRYPT_DOMAINS: "daxhelet.ovh,www.daxhelet.ovh,b2b.daxhelet.ovh"
+            LETS_ENCRYPT_DOMAINS: "www.daxhelet.ovh,b2b.daxhelet.ovh"
         networks:
             woodytoys:
                 ipv4_address: 172.16.20.2
